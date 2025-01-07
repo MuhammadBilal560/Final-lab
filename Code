@@ -1,1 +1,131 @@
 Code 
+package finallab;
+
+class Product {
+    private String barcode;
+    private String name;
+    private double price;
+    private String storeLocation;
+
+    public Product(String barcode, String name, double price, String storeLocation) {
+        this.barcode = barcode;
+        this.name = name;
+        this.price = price;
+        this.storeLocation = storeLocation;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getStoreLocation() {
+        return storeLocation;
+    }
+}
+Scane and find cheapest product:
+package finallab;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ScanAndFindCheapestDemo {
+    public static void main(String[] args) {
+        // Create some products with barcodes available in different stores
+        Map<String, Product[]> productCatalog = new HashMap<>();
+        
+        productCatalog.put("123456", new Product[]{
+            new Product("123456", "Apple", 0.99, "Store A"),
+            new Product("123456", "Apple", 0.89, "Store B"),
+            new Product("123456", "Apple", 1.05, "Store C")
+        });
+
+        productCatalog.put("234567", new Product[]{
+            new Product("234567", "Bread", 2.49, "Store A"),
+            new Product("234567", "Bread", 2.29, "Store B"),
+            new Product("234567", "Bread", 2.59, "Store C")
+        });
+
+        ShoppingCart cart = new ShoppingCart();
+
+        // Simulate scanning products by barcode
+        String scannedBarcode = "123456"; // Example scanned barcode
+        if (productCatalog.containsKey(scannedBarcode)) {
+            Product[] products = productCatalog.get(scannedBarcode);
+            Product cheapestProduct = findCheapestProduct(products);
+            System.out.println("Cheapest option for " + cheapestProduct.getName() + ": $" + cheapestProduct.getPrice() + " at " + cheapestProduct.getStoreLocation());
+            cart.addProduct(cheapestProduct);
+        } else {
+            System.out.println("Product not found for barcode: " + scannedBarcode);
+        }
+
+        // Simulate another scan
+        scannedBarcode = "234567"; // Another example scanned barcode
+        if (productCatalog.containsKey(scannedBarcode)) {
+            Product[] products = productCatalog.get(scannedBarcode);
+            Product cheapestProduct = findCheapestProduct(products);
+            System.out.println("Cheapest option for " + cheapestProduct.getName() + ": $" + cheapestProduct.getPrice() + " at " + cheapestProduct.getStoreLocation());
+            cart.addProduct(cheapestProduct);
+        } else {
+            System.out.println("Product not found for barcode: " + scannedBarcode);
+        }
+
+        // View the cart and calculate total
+        cart.viewCart();
+        double total = cart.calculateTotal();
+        System.out.printf("Total Price: $%.2f%n", total);
+    }
+
+    private static Product findCheapestProduct(Product[] products) {
+        Product cheapest = products[0];
+        
+        for (Product product : products) {
+            if (product.getPrice() < cheapest.getPrice()) {
+                cheapest = product;
+            }
+        }
+        
+        return cheapest;
+    }
+}
+
+Shopping cart:
+package finallab;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class ShoppingCart {
+    private List<Product> items;
+
+    public ShoppingCart() {
+        items = new ArrayList<>();
+    }
+
+    public void addProduct(Product product) {
+        items.add(product);
+        System.out.println(product.getName() + " has been added to your cart.");
+    }
+
+    public void viewCart() {
+        System.out.println("Your Shopping Cart:");
+        for (Product item : items) {
+            System.out.println("- " + item.getName() + ": $" + item.getPrice());
+        }
+    }
+
+    public double calculateTotal() {
+        double total = 0;
+        for (Product item : items) {
+            total += item.getPrice();
+        }
+        return total;
+    }
+}
