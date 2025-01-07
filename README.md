@@ -53,3 +53,43 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 - Inspired by various e-commerce applications and their functionalities.
+
+
+**Explanation:**
+**Attributes:**
+   The Product class has four attributes: barcode, name, price, and storeLocation. These represent the product's unique identifier, its name, its price, and where it is located (store).
+**Constructor**:
+  The constructor initializes these attributes when a new Product object is created.
+Getters: Getter methods allow access to the product's attributes from outside the class.
+
+**Explanation:**
+
+**Attributes**:
+The ShoppingCart class contains a list of Product objects called items.
+Constructor: Initializes the items list when a new ShoppingCart object is created.
+**Methods:**
+**addProduct(Product product):**
+      Adds a product to the cart and prints a confirmation message.
+
+**viewCart()**:
+      Displays all products currently in the cart along with their prices.
+
+**calculateTotal():**
+Calculates and returns the total price of all products in the cart.
+
+**Main Method:**
+A map called productCatalog is created to store arrays of Product objects associated with their barcodes.
+Two example products (Apple and Bread) are added to the catalog with different prices from various stores.
+
+**Simulating Scanning:**
+The program simulates scanning by checking if a given barcode exists in the catalog.
+If found, it retrieves the array of products associated with that barcode and calls the method to find the cheapest product.
+
+**Finding the Cheapest Product:**
+The method findCheapestProduct(Product[] products) iterates through the array of products and identifies the one with the lowest price.
+
+**Adding to Cart:**
+The cheapest product is added to the shopping cart, and a message is printed indicating which product was added.
+
+**Viewing Cart and Calculating Total:**
+After scanning both products, it displays all items in the cart and calculates the total price.
